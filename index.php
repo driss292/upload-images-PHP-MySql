@@ -16,6 +16,12 @@ if (isset($_POST["add-image"])) {
     $addImage = $db->prepare($sql);
     $addImage->execute($data);
 }
+
+$sqlImages = "SELECT * FROM images";
+$getDataImages = $db->prepare($sqlImages);
+$getDataImages->execute();
+$images = $getDataImages->fetchAll(PDO::FETCH_ASSOC);
+// var_dump($images);
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +52,16 @@ if (isset($_POST["add-image"])) {
                     <button type="submit" name="add-image">Envoyer la photo</button>
                 </form>
             </div>
+        </div>
+        <div class="show-images">
+            <?php foreach ($images as $image) { ?>
+                <div class="polaroid">
+                    <div class="polaroid__image">
+                        <img src="<?= $image["link"] ?>" alt="<?= $image["title"] ?>">
+                    </div>
+                    <p><?= $image["title"] ?></p>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </body>

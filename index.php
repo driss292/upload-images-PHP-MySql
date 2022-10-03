@@ -2,11 +2,19 @@
 require_once("database/connection.php");
 $title = "Upload index";
 if (isset($_POST["add-image"])) {
-    var_dump($_FILES["photo"]);
-    $data = [
-        "title" => htmlentities($_POST["title"]),
-
+    $dataImages = [
+        "img_link" => 'images/' . $_FILES["image"]["name"],
+        "img_file" => $_FILES["image"]["tmp_name"]
     ];
+    $data = [
+        "title" => htmlspecialchars($_POST["title"]),
+        "img_link" => $dataImages["img_link"],
+    ];
+    move_uploaded_file($dataImages["img_file"], $dataImages["img_link"]);
+
+    $sql = "INSERT INTO images(title,link) VALUE (:title,:img_link)";
+    $addImage = $db->prepare($sql);
+    $addImage->execute($data);
 }
 ?>
 
@@ -33,7 +41,7 @@ if (isset($_POST["add-image"])) {
                     </div>
                     <div>
                         <label for="photo">Choisir une photo</label>
-                        <input type="file" accept="image/png, image/jpeg" name="photo" id="photo">
+                        <input type="file" accept="image/png, image/jpeg" name="image" id="photo">
                     </div>
                     <button type="submit" name="add-image">Envoyer la photo</button>
                 </form>

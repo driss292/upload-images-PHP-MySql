@@ -8,3 +8,28 @@
 body {
     background: #ffb63a;
 }
+.container {
+    max-width: 1400px;
+    margin: 40px auto 0 auto;
+}
+
+.add-images {
+    min-height: 300px;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(91, 91, 91, 0.15);
+    padding: 25px 50px;
+    border-radius: 15px;
+}
+
+.add-images h1 {
+    text-align: center;
+}
+label {
+    display: block;
+}
+form {
+    margin-top: 40px;
+}
+form > div {
+    margin-bottom: 20px;
+}
